@@ -24,7 +24,9 @@ session = cnx.session()
 #session = get_active_session()
 my_dataframe = session.table("smoothies.public.fruit_options").select (col('FRUIT_NAME'))
 #st.dataframe(data=my_dataframe, use_container_width=True)
-
+import requests
+fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
+st.text(fruityvice_response)
 ingredients_list = st.multiselect(
     'Choose up to 5 ingredients:',
     my_dataframe,
@@ -46,9 +48,6 @@ if ingredients_list:
 
     #st.write(my_insert_stmt)
     #st.stop()
-    import requests
-    fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
-    st.text(fruityvice_response)
     time_to_insert = st.button('Submit Order')
     
     if time_to_insert:
